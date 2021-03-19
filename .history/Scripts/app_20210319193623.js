@@ -400,10 +400,6 @@
         $(`<li class="nav-item">
         <a id="contact-list" class="nav-link" aria-current="page"><i class="fas fa-users fa-lg"></i> Contact List</a>
       </li>`).insertBefore("#loginListItem");
-
-      $(`<li class="nav-item">
-        <a id="task-list" class="nav-link" aria-current="page"><i class="fas fa-users fa-lg"></i> Task List</a>
-      </li>`).insertBefore("#loginListItem");
       }
       else
       {
@@ -487,61 +483,58 @@
      */
     function DisplayTaskList()
     {
-
       // don't allow visitors to go here
       authGuard();
 
-      let messageArea = $("#messageArea");
-      messageArea.hide();
-      let taskInput = $("#taskTextInput");
+        let messageArea = $("#messageArea");
+        messageArea.hide();
+        let taskInput = $("#taskTextInput");
 
-      // add a new Task to the Task List
-      $("#newTaskButton").on("click", function()
-      {     
+        // add a new Task to the Task List
+        $("#newTaskButton").on("click", function()
+        {         
+            AddNewTask();
+        });
 
-        AddNewTask();
-      });
-
-      taskInput.on("keypress", function(event)
-      {
-        if(event.key == "Enter")
-        {
-          AddNewTask();
-        }
-      });
-
-      // Edit an Item in the Task List
-      $("ul").on("click", ".editButton", function()
-      {
-        let editText = $(this).parent().parent().children(".editTextInput");
-        let text = $(this).parent().parent().text();
-        editText.val(text).show().trigger("select");
-        editText.on("keypress", function(event)
+        taskInput.on("keypress", function(event)
         {
           if(event.key == "Enter")
           {
-            if(editText.val() != "" && editText.val().charAt(0) != " ")
-            {
-              editText.hide();
-              $(this).parent().children("#taskText").text(editText.val());
-              messageArea.removeAttr("class").hide();
-            }
-            else
-            {
-              editText.trigger("focus").trigger("select");
-              messageArea.show().addClass("alert alert-danger").text("Please enter a valid Task.");
-            }
+            AddNewTask();
           }
+         });
+
+        // Edit an Item in the Task List
+        $("ul").on("click", ".editButton", function(){
+           let editText = $(this).parent().parent().children(".editTextInput");
+           let text = $(this).parent().parent().text();
+           editText.val(text).show().trigger("select");
+           editText.on("keypress", function(event)
+           {
+            if(event.key == "Enter")
+            {
+              if(editText.val() != "" && editText.val().charAt(0) != " ")
+              {
+                editText.hide();
+                $(this).parent().children("#taskText").text(editText.val());
+                messageArea.removeAttr("class").hide();
+              }
+              else
+              {
+                editText.trigger("focus").trigger("select");
+                messageArea.show().addClass("alert alert-danger").text("Please enter a valid Task.");
+              }
+            }
+           });
         });
-      });
 
         // Delete a Task from the Task List
-      $("ul").on("click", ".deleteButton", function(){
-        if(confirm("Are you sure?"))
-        {
-          $(this).closest("li").remove();
-        }    
-      });
+        $("ul").on("click", ".deleteButton", function(){
+            if(confirm("Are you sure?"))
+            {
+                $(this).closest("li").remove();
+            }    
+        });
     }
 
     function Start()
