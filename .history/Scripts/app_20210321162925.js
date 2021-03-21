@@ -403,7 +403,7 @@
         <a id="contact-list" class="nav-link" aria-current="page"><i class="fas fa-users fa-lg"></i> Contact List</a>
       </li>`).insertBefore("#loginListItem");
 
-      // Insert a Nav Link for the Tasks Page
+      // Insert a Nav Lin
       $(`<li class="nav-item">
         <a id="task-list" class="nav-link" aria-current="page"><i class="fas fa-tasks fa-lg"></i> Task List</a>
       </li>`).insertBefore("#loginListItem");
@@ -491,7 +491,7 @@
     function DisplayTaskList()
     {
 
-      // Check to see if a user is logged in
+      // don't allow visitors to go here
       authGuard();
 
       let messageArea = $("#messageArea");
